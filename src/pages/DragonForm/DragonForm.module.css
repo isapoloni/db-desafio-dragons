@@ -1,0 +1,53 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black-color, #232323);
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.cancelButton {
+  width: 100%;
+  margin-top: 0.5rem;
+  background: #393939;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+
+  .container {
+    align-items: center;
+    padding-top: 3rem;
+    min-height: 100vh;
+  }
+
+  .form {
+    gap: 1rem;
+    padding: 0 3rem;
+  }
+  
+  .button,
+  .cancelButton {
+    font-size: 1rem;
+    padding: 0.75rem 0;
+  }
+}

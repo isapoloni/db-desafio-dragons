@@ -1,0 +1,178 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--blue-color);
+  border-radius: 8px;
+  overflow: hidden;
+  color: var(--white-color);
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  max-width: 300px;
+}
+
+.image {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dragonImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  background-color: var(--blue-color);
+  position: relative;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  margin: 0;
+}
+
+.type {
+  font-size: 1rem;
+}
+
+.creationDate {
+  display: none;
+}
+
+.menu {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  color: var(--light-purple-color);
+  background-color: var(--blue-color);
+}
+
+.menuOptions {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--light-purple-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.menuOption {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: var(--white-color);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.menuOption:hover {
+  background-color: var(--dark-purple-color);
+}
+
+.footer {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: start;
+  padding: 0 0 0.5rem 1rem;
+}
+
+.footerLabel {
+  font-size: 0.75rem;
+  font-weight: lighter;
+  color: var(--white-color);
+}
+
+.footerDate {
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: var(--white-color);
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: row-reverse;
+    max-width: 100%;
+    align-items: center;
+    box-shadow: none;
+    border-radius: 12;
+    overflow: visible;
+  }
+
+  .image {
+    width: 40%;
+  }
+
+  .header {
+    width: 60%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background-color: transparent;
+  }
+
+  .text {
+    gap: 0.25rem;
+    text-align: left;
+  }
+
+  .name {
+    font-size: 1rem;
+  }
+
+  .type {
+    font-size: 0.875rem;
+  }
+
+  .creationDate {
+    display: contents;
+    font-size: 0.75rem;
+  }
+  
+
+  .menuButton {
+    font-size: 2rem;
+    color: var(--light-purple-color);
+    cursor: pointer;
+  }
+
+  .footer,
+  .footerLabel,
+  .footerDate {
+    display: none;
+  }
+}
