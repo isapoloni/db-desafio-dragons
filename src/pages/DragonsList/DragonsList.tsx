@@ -202,9 +202,6 @@ export function DragonsList() {
             </div>
         );
 
-
-    const shuffledImages = [...dragonImages].sort(() => Math.random() - 0.5);
-
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -221,16 +218,28 @@ export function DragonsList() {
             </header>
             <div className={styles.containerBody}>
                 <div className={styles.actions}>
-                    <Button onClick={toggleFilterModal} className={styles.filterButton} aria-label="Filtrar dragões">
+                    <Button
+                        onClick={toggleFilterModal}
+                        className={styles.filterButton}
+                        aria-label="Filtrar dragões"
+                    >
                         Filtrar
                     </Button>
-                    <Button onClick={handleAddDragon} className={styles.addButtonMobile} aria-label="Adicionar dragão">
+                    <Button
+                        onClick={handleAddDragon}
+                        className={styles.addButtonMobile}
+                        aria-label="Adicionar dragão"
+                    >
                         Adicionar Dragão
                     </Button>
                 </div>
 
                 <aside className={styles.filters}>
-                    <Button onClick={handleAddDragon} className={styles.addButtonDesktop} aria-label="Adicionar dragão">
+                    <Button
+                        onClick={handleAddDragon}
+                        className={styles.addButtonDesktop}
+                        aria-label="Adicionar dragão"
+                    >
                         Adicionar Dragão
                     </Button>
                     <h2>Filtros</h2>
@@ -246,7 +255,11 @@ export function DragonsList() {
                             aria-label="Filtrar por nome"
                         />
                     </div>
-                    <Button onClick={toggleSortOrder} className={styles.sortButton} aria-label={`Ordenar ${sortLabel}`}>
+                    <Button
+                        onClick={toggleSortOrder}
+                        className={styles.sortButton}
+                        aria-label={`Ordenar ${sortLabel}`}
+                    >
                         Ordenar: {sortLabel}
                     </Button>
                 </aside>
@@ -256,23 +269,30 @@ export function DragonsList() {
                         {paginated.length === 0 ? (
                             <div className={styles.notFound}>
                                 <p>Nenhum dragão encontrado.</p>
-                                <Button onClick={handleAddDragon} className={styles.addButtonDesktop} aria-label="Adicionar dragão">
+                                <Button
+                                    onClick={handleAddDragon}
+                                    className={styles.addButtonDesktop}
+                                    aria-label="Adicionar dragão"
+                                >
                                     Adicionar Dragão
                                 </Button>
                             </div>
                         ) : (
-                            paginated.map((dragon, idx) => (
-                                <CardDragon
-                                    key={dragon.id}
-                                    id={dragon.id}
-                                    name={dragon.name}
-                                    type={dragon.type}
-                                    creationDate={new Date(dragon.createdAt).toLocaleDateString()}
-                                    image={shuffledImages[idx % shuffledImages.length]}
-                                    onEdit={() => openEditModal(dragon)}
-                                    onDelete={() => openDeleteModal(dragon)}
-                                />
-                            ))
+                            paginated.map((dragon) => {
+                                const filteredIdx = filtered.findIndex(d => d.id === dragon.id);
+                                return (
+                                    <CardDragon
+                                        key={dragon.id}
+                                        id={dragon.id}
+                                        name={dragon.name}
+                                        type={dragon.type}
+                                        creationDate={new Date(dragon.createdAt).toLocaleDateString()}
+                                        image={dragonImages[filteredIdx % dragonImages.length]}
+                                        onEdit={() => openEditModal(dragon)}
+                                        onDelete={() => openDeleteModal(dragon)}
+                                    />
+                                );
+                            })
                         )}
                     </div>
 
@@ -330,7 +350,10 @@ export function DragonsList() {
                         </form>
                     </Modal>
 
-                    <Modal open={showDeleteModal && !!selectedDragon} onClose={closeDeleteModal}>
+                    <Modal
+                        open={showDeleteModal && !!selectedDragon}
+                        onClose={closeDeleteModal}
+                    >
                         <p>Tem certeza que deseja excluir o dragão {selectedDragon?.name} ?</p>
                         <div className={styles.modalActions}>
                             <Button
