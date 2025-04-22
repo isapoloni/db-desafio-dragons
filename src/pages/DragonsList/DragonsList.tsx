@@ -14,25 +14,40 @@ function useDragons(
     dragons: Dragon[],
     filter: string,
     sortOrder: 'asc' | 'desc',
+    sortByDate: 'asc' | 'desc' | null,
     currentPage: number,
     itemsPerPage: number
 ) {
-    const sorted = [...dragons].sort((a, b) =>
-        sortOrder === 'asc'
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
-    );
+    let sorted = [...dragons];
+
+    if (sortByDate) {
+        sorted.sort((a, b) =>
+            sortByDate === 'asc'
+                ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+                : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+    } else {
+        sorted.sort((a, b) =>
+            sortOrder === 'asc'
+                ? a.name.localeCompare(b.name)
+                : b.name.localeCompare(a.name)
+        );
+    }
+
     const filtered = sorted.filter((dragon) =>
         dragon.name.toLowerCase().includes(filter.toLowerCase())
     );
+
     const paginated = filtered.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
+
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
     return { paginated, filtered, totalPages };
 }
+
 
 interface Dragon {
     id: string;
@@ -51,6 +66,7 @@ export function DragonsList() {
     const [filter, setFilter] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [sortByDate, setSortByDate] = useState<'asc' | 'desc' | null>(null);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
     const [itemsPerPage, setItemsPerPage] = useState<number>(9);
     const [selectedDragon, setSelectedDragon] = useState<Dragon | null>(null);
@@ -169,9 +185,11 @@ export function DragonsList() {
         dragons,
         filter,
         sortOrder,
+        sortByDate,
         currentPage,
         itemsPerPage
     );
+
 
     const handlePageChange = (page: number) => setCurrentPage(page);
 
@@ -262,6 +280,13 @@ export function DragonsList() {
                     >
                         Ordenar: {sortLabel}
                     </Button>
+
+                    <Button onClick={() => {
+                        setSortByDate(prev => prev === 'asc' ? 'desc' : prev === 'desc' ? null : 'asc');
+                    }} className={styles.sortButton} aria-label="Ordenar por data de criação">
+                        Ordenar por Data: {sortByDate === 'asc' ? 'Mais antigos' : sortByDate === 'desc' ? 'Mais recentes' : 'Nenhum'}
+                    </Button>
+
                 </aside>
 
                 <main className={styles.mainContent}>
@@ -401,6 +426,11 @@ export function DragonsList() {
                             </div>
                             <Button onClick={toggleSortOrder} className={styles.sortButton} aria-label={`Ordenar ${sortLabel}`}>
                                 Ordenar: {sortLabel}
+                            </Button>
+                            <Button onClick={() => {
+                                setSortByDate(prev => prev === 'asc' ? 'desc' : prev === 'desc' ? null : 'asc');
+                            }} className={styles.sortButton} aria-label="Ordenar por data de criação">
+                                Ordenar por Data: {sortByDate === 'asc' ? 'Mais antigos' : sortByDate === 'desc' ? 'Mais recentes' : 'Nenhum'}
                             </Button>
                         </div>
                     </div>
