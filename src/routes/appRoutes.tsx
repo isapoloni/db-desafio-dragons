@@ -5,6 +5,7 @@ import { PrivateRoute } from "../components/PrivateRoute/PrivateRoute";
 import { DragonForm } from "../pages/DragonForm/DragonForm";
 import { DragonProvider } from "../context/DragonContext";
 import { DragonDetails } from "../pages/DragonDetails/DragonDetails";
+import { NotFound } from "../pages/NotFound/NotFound";
 
 
 export function AppRoutes() {
@@ -38,6 +39,7 @@ export function AppRoutes() {
                     </PrivateRoute>
                 }
             />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
